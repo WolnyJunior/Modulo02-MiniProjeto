@@ -97,7 +97,7 @@
     box-shadow: 6px 10px 13px rgba(0, 0, 0, 0.3);
 }
 
-.news div {
+.news span {
     display: flex;
     align-items: center;
     padding: 8px;
@@ -109,6 +109,6 @@
     padding: 20px;
     width: 100%;
     text-overflow: ellipsis;
-    font-size: 16px;
-    /* color: #44546A; */
+    font-size: 18px;
+    color: #000;
 }

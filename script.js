@@ -5,7 +5,7 @@ const btnAddTask = document.querySelector('.btnAddTask')
 function addList() {
     const inputList = document.querySelector("#taskList");
     inputList.innerHTML = "";//Limpa o conteúdo atual da lista
-    
+
     // Recupera a lista de tarefas do localStorage ou inicializa com uma lista vazia
     const listLocalStorage = JSON.parse(localStorage.getItem('taskList')) || [];
 
@@ -45,3 +45,22 @@ btnAddTask.addEventListener('click', addTask);
 btnCleanList.addEventListener('click', cleanList);
 
 setInterval(addList, 1000)
+
+async function getNewsIBGE() {
+    const newsIBGE = await fetch('https://servicodados.ibge.gov.br/api/v3/noticias/?de=09-27-2017')
+    const dataNews = await newsIBGE.json()
+
+    const newsItems = dataNews.items[0]
+
+    const respostaNewsIBGE = document.getElementById('newsIBGE')
+    respostaNewsIBGE.innerHTML = newsItems.titulo
+
+    const newsLink = document.getElementById('newsLink')
+    newsLink.href = newsItems.link
+    return dataNews
+}
+
+getNewsIBGE()
+
+
+
