@@ -17,7 +17,6 @@ function addList() {
     });
 }
 
-
 // Função para adicionar um nova tarefa
 function addTask() {
     const addTask = document.querySelector("input");//Captura o elemento através do input
@@ -59,8 +58,4 @@ async function getNewsIBGE() {
     newsLink.href = newsItems.link
     return dataNews
 }
-
 getNewsIBGE()
-
-
-
