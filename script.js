@@ -1,55 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const btnAddNewTask = document.getElementById('btnAddtask')
-    const taskList = document.getElementById('taskList')
-    const inputTask = document.getElementById('inputTask')
-    const btnCleanList = document.getElementById('cleanList')
-    inputTask.addEventListener('focus', () => {
-        inputTask.classList.add('input-focus')
-        inputTask.style = 'border: 3px solid #000; text-align: center'
-        inputTask.placeholder = 'Adicione um interesse.'
-    })
+const btnCleanList = document.querySelector('.btnCleanList')
+const btnAddTask = document.querySelector('.btnAddTask')
 
-    inputTask.addEventListener('blur', () => {
-        inputTask.classList.remove('input-focus')
-        if (inputTask.value === '') {
-            inputTask.style = 'background: #ee9090; border: 3px solid red; text-align: center'
-            inputTask.placeholder = 'Preencha este campo.'
-        } else {
-            inputTask.style = 'background: #0effe0; border: 3px solid green'
-        }
-    })
+// Função para adicionar tarefas à lista no DOM
+function addList() {
+    const inputList = document.querySelector("#taskList");
+    inputList.innerHTML = "";//Limpa o conteúdo atual da lista
+    
+    // Recupera a lista de tarefas do localStorage ou inicializa com uma lista vazia
+    const listLocalStorage = JSON.parse(localStorage.getItem('taskList')) || [];
 
-    btnAddNewTask.addEventListener('click', () => {
-        const newTask = inputTask.value.trim()
-        if (newTask !== '') {
-            addNewTask(newTask)
-            inputTask.value = ''
-            inputTask.placeholder = 'Adicione mais interesses.'
-        }
-    })
-
-    taskList.addEventListener('click', (event) => {
-        if (event.target.classList.contains('close-button')) {
-            event.target.parentElement.remove()
-        }
-    })
-
-    btnCleanList.addEventListener('click', ()=>{
-
-    })
+    // Itera sobre cada tarefa na lista e cria um elemento li para cada uma
+    listLocalStorage.forEach(task => {
+        const li = document.createElement('li');
+        li.textContent = task; //Define o texto do elemento criado como o valor do input atual
+        inputList.appendChild(li);//Adiciona o elemento criado à lista no DOM
+    });
+}
 
 
-    function addNewTask(task) {
-        const li = document.createElement('li')
-        li.textContent = task
+// Função para adicionar um nova tarefa
+function addTask() {
+    const addTask = document.querySelector("input");//Captura o elemento através do input
+    const newTask = addTask.value.trim();// Obtém e remove espaços em branco do início e fim do texto
 
-        btnCleanList.style.display = 'block'
+    if (newTask) {
+        const listLocalStorage = JSON.parse(localStorage.getItem('taskList')) || [];
+        listLocalStorage.push(newTask);//Adciona a nova tarefa à lista
+        localStorage.setItem('taskList', JSON.stringify(listLocalStorage));// Atualiza a lista no localStorage
 
-        const btnDelete = document.createElement('button')
-        btnDelete.textContent = 'X'
-        btnDelete.className = 'close-button'
-
-        li.appendChild(btnDelete)
-        taskList.appendChild(li)
+        addTask.value = "";//Limpa o campo de entrada de texto
+        addList(); //Atualiza a lista no DOM
+    } else if (newTask != "") {
+        alert("Por favor insira um interesse ou hobbie");
     }
-})
+}
+
+// Função para limpar a lista e o localStorage
+function cleanList() {
+    localStorage.removeItem('taskList');
+    addList();
+}
+
+btnAddTask.addEventListener('click', addTask);
+btnCleanList.addEventListener('click', cleanList);
+
+setInterval(addList, 1000)
