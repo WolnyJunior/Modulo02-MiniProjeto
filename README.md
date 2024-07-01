@@ -22,6 +22,6 @@
 
 <p>Na função de limpar lista, é feita a remoção dos elementos na DOM e no localStorage.</p>
 
-<p>Foi criada uma função para fazer uma requisição na API do IBGE( <a href="servicodados.ibge.gov.br/api/v3/noticias/?tipo=release.">link</a> ) através do método fetch, transforma esses dados em um arquivo JSON e pega o primeiro item da lista na propriedade items, trazendo informações sobre a última notícia postada. O título dessa notícia é exibida em um card, no canto inferior direito, onde é possível clicar e acessar.</p>
+<p>Foi criada uma função para fazer uma requisição na API do IBGE através do método fetch, transforma esses dados em um arquivo JSON e pega o primeiro item da lista na propriedade items, trazendo informações sobre a última notícia postada. O título dessa notícia é exibida em um card, no canto inferior direito, onde é possível clicar e acessar.</p>
 
 - [Indice](#indice)
